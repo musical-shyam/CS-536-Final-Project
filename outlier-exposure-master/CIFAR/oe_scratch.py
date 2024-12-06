@@ -65,6 +65,24 @@ args = parser.parse_args()
 state = {k: v for k, v in args._get_kwargs()}
 print(state)
 
+class RandomImagesDataset(torch.utils.data.Dataset):
+    def __init__(self, file_path, transform=None):
+        self.data = np.load(file_path)  # Load the dataset
+        print(f"Loaded dataset shape: {self.data.shape}") 
+        if self.data.shape[-1] == 3:  # If channels are last
+            self.data = np.transpose(self.data, (0, 3, 1, 2))  # Convert to (N, C, H, W)
+        self.transform = transform
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        image = self.data[idx]
+        image = np.transpose(image, (1, 2, 0))  # Convert to HWC format if needed
+        if self.transform:
+            image = self.transform(image)
+        return image, -1  # Dummy label for outlier exposure
+    
 if __name__ == '__main__':
     device = 'cuda' if torch.cuda.is_available() else 'cpu'
     
@@ -96,10 +114,11 @@ if __name__ == '__main__':
         train_data_in, val_data = validation_split(train_data_in, val_share=0.1)
         calib_indicator = '_calib'
 
-
-    ood_data = TinyImages(transform=trn.Compose(
-        [trn.ToTensor(), trn.ToPILImage(), trn.RandomCrop(32, padding=4),
-        trn.RandomHorizontalFlip(), trn.ToTensor(), trn.Normalize(mean, std)]))
+    random_images_path = get_dataset_path("300K_random_images.npy")
+    data = np.load(random_images_path)
+    ood_data = RandomImagesDataset(file_path = random_images_path, transform=trn.Compose(
+        [trn.ToTensor(), trn.RandomCrop(32, padding=4),
+        trn.RandomHorizontalFlip(), trn.Normalize(mean, std)]))
 
     train_loader_in = torch.utils.data.DataLoader(
         train_data_in,
@@ -108,7 +127,7 @@ if __name__ == '__main__':
 
     train_loader_out = torch.utils.data.DataLoader(
         ood_data,
-        batch_size=args.oe_batch_size, shuffle=False,
+        batch_size=args.oe_batch_size, shuffle=True,
         num_workers=args.prefetch, pin_memory=True)
 
     test_loader = torch.utils.data.DataLoader(
