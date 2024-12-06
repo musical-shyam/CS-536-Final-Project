@@ -3,6 +3,7 @@ from PIL import Image
 import os
 import os.path
 import numpy as np
+from torchvision.datasets.utils import check_integrity, download_url
 
 
 class SVHN(data.Dataset):
@@ -25,10 +26,18 @@ class SVHN(data.Dataset):
 
     def __init__(self, root, split='train',
                  transform=None, target_transform=None, download=False):
+        
         self.root = root
         self.transform = transform
         self.target_transform = target_transform
         self.split = split  # training set or test set or extra set
+        
+        if download and not self._check_integrity():
+            print(f"Downloading missing dataset files for {self.split} split...")
+            self.download()
+
+        if not self._check_integrity():
+            raise RuntimeError(f"Dataset not found or corrupted. You can set `download=True` to download it.")
 
         if self.split not in self.split_list:
             raise ValueError('Wrong split entered! Please use split="train" '
