@@ -1,0 +1,56 @@
+Model restored! Epoch: 4
+
+Tuning Softmax Temperature
+Softmax Temperature Tuned. Temperature is 0.792
+Error Rate 16.80
+
+Using CIFAR-10 as typical data
+
+
+In-Distribution Data
+                                cifar10_calib_allconv_oe_tune
+RMS Calib Error (%):            3.36
+MAD Calib Error (%):            2.27
+Soft F1-Score (%):              40.33
+
+
+Gaussian Noise (sigma = 0.5) Calibration
+                                                        cifar10_calib_allconv_oe_tune
+RMS Calib Error (%):            11.81
+MAD Calib Error (%):            6.96
+Soft F1 Score (%):              58.56
+
+
+Rademacher Noise Calibration
+                                                        cifar10_calib_allconv_oe_tune
+RMS Calib Error (%):            11.16
+MAD Calib Error (%):            6.71
+Soft F1 Score (%):              58.56
+
+
+Blob Calibration
+                                                        cifar10_calib_allconv_oe_tune
+RMS Calib Error (%):            10.50
+MAD Calib Error (%):            7.59
+Soft F1 Score (%):              53.76
+
+
+Texture Calibration
+                                                        cifar10_calib_allconv_oe_tune
+RMS Calib Error (%):            10.09
+MAD Calib Error (%):            7.75
+Soft F1 Score (%):              53.28
+
+
+CIFAR-10 Detection
+                                                        cifar10_calib_allconv_oe_tune
+RMS Calib Error (%):            11.27
+MAD Calib Error (%):            9.11
+Soft F1 Score (%):              49.32
+
+
+Mean Test Results
+                                                        cifar10_calib_allconv_oe_tune
+RMS Calib Error (%):            10.97
+MAD Calib Error (%):            7.62
+Soft F1 Score (%):              54.69
