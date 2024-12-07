@@ -295,7 +295,7 @@ if __name__ == '__main__':
                                             num_workers=args.prefetch, pin_memory=True)
 
 
-    print('\n\nCIFAR-100 Detection') if 'cifar100' in args.method_name else print('\n\nCIFAR-10 Detection')
+    print('\n\nCIFAR-10 Detection') if 'cifar100' in args.method_name else print('\n\nCIFAR-100 Detection')
     get_and_print_results(ood_loader)
 
     # /////////////// Mean Results ///////////////

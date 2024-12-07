@@ -1,0 +1,53 @@
+Model restored! Epoch: 4
+Error Rate 15.80
+
+Using CIFAR-10 as typical data
+
+
+Error Detection
+                        cifar10_allconv_oe_scratch
+FPR95:                  42.04
+AUROC:                  86.65
+AUPR:                   50.90
+
+
+Gaussian Noise (sigma = 0.5) Detection
+                                cifar10_allconv_oe_scratch
+FPR95:                  6.56
+AUROC:                  96.55
+AUPR:                   69.90
+
+
+Rademacher Noise Detection
+                                cifar10_allconv_oe_scratch
+FPR95:                  0.48
+AUROC:                  99.75
+AUPR:                   96.01
+
+
+Blob Detection
+                                cifar10_allconv_oe_scratch
+FPR95:                  30.90
+AUROC:                  90.24
+AUPR:                   59.51
+
+
+Texture Detection
+                                cifar10_allconv_oe_scratch
+FPR95:                  41.45
+AUROC:                  87.67
+AUPR:                   60.81
+
+
+CIFAR-100 Detection
+                                cifar10_allconv_oe_scratch
+FPR95:                  52.52
+AUROC:                  82.63
+AUPR:                   47.23
+
+
+Mean Test Results
+                                cifar10_allconv_oe_scratch
+FPR95:                  26.38
+AUROC:                  91.37
+AUPR:                   66.69
